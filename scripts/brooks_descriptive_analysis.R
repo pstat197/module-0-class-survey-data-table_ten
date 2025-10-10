@@ -1,4 +1,5 @@
 library(tidyverse)
+library(ggplot2)
 
 # retrieve class survey data
 url <- 'https://raw.githubusercontent.com/pstat197/pstat197a/main/materials/labs/lab2-tidyverse/data/'
@@ -14,6 +15,9 @@ metadata <- paste(url, 'survey-metadata.csv', sep = '') %>%
 
 view(background)
 view(interest)
+
+# data cleaning
+interest$lang[interest$response_id == 29] <- "Python"
 
 # Gathering simple 1 var summary
 interest %>%
@@ -64,3 +68,22 @@ Python_rsrch_prop = Python_background %>%
   mutate("prop" = n / sum(n))
 
 Python_rsrch_prop
+
+# Plotting
+
+R_rsrch_prop %>%
+  ggplot(aes(x = rsrch, y = prop)) +
+  geom_bar(stat = "identity") +
+  theme_minimal() +
+  scale_fill_manual(values = c("blue", "green") ) +
+  labs(title = "Past Research Experience for those preferring R",
+       x = "Past Research Experience",
+       y = "Proportion")
+
+Python_rsrch_prop %>%
+  ggplot(aes(x = rsrch, y = prop)) +
+  geom_bar(stat = "identity") +
+  scale_fill_manual(values = c("blue", "green") ) +
+  labs(title = "Past Research Experience for those preferring Python",
+       x = "Past Research Experience",
+       y = "Proportion")
