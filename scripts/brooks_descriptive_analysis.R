@@ -71,19 +71,33 @@ Python_rsrch_prop
 
 # Plotting
 
-R_rsrch_prop %>%
+R_rsrch_prop_plot = R_rsrch_prop %>%
   ggplot(aes(x = rsrch, y = prop)) +
   geom_bar(stat = "identity") +
-  theme_minimal() +
-  scale_fill_manual(values = c("blue", "green") ) +
-  labs(title = "Past Research Experience for those preferring R",
+  scale_fill_manual(values = c("blue", "green")) +
+  scale_y_continuous(limits = c(0,1)) +
+  labs(title = "Past Research Experience",
+       subtitle = "For those preferring R",
        x = "Past Research Experience",
        y = "Proportion")
 
-Python_rsrch_prop %>%
+Python_rsrch_prop_plot = Python_rsrch_prop %>%
   ggplot(aes(x = rsrch, y = prop)) +
   geom_bar(stat = "identity") +
   scale_fill_manual(values = c("blue", "green") ) +
-  labs(title = "Past Research Experience for those preferring Python",
+  scale_y_continuous(limits = c(0,1)) +
+  labs(title = "Past Research Experience",
+       subtitle = "For those preferring Python",
        x = "Past Research Experience",
        y = "Proportion")
+
+library(gridExtra)
+grid.arrange(
+  R_rsrch_prop_plot,
+  Python_rsrch_prop_plot,
+  nrow=1
+)
+
+# Insight: Between those who prefer R and those who prefer Python
+# R preference tends to have a high proportion of past research experience -> More research oriented language
+# Next steps/segue: what classes do R user gravitate towards? Are these more research oriented?
