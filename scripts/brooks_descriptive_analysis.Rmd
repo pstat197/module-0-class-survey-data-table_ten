@@ -1,0 +1,152 @@
+---
+title: "Brooks' Descriptive Analysis"
+author: "Brooks Piper"
+date: "2025-10-19"
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(warning = FALSE, message = FALSE)
+```
+
+```{r}
+library(tidyverse)
+library(ggplot2)
+library(knitr)
+
+# retrieve class survey data
+url <- 'https://raw.githubusercontent.com/pstat197/pstat197a/main/materials/labs/lab2-tidyverse/data/'
+
+background <- paste(url, 'background-clean.csv', sep = '') %>%
+  read_csv()
+
+interest <- paste(url, 'interest-clean.csv', sep = '') %>%
+  read_csv()
+
+metadata <- paste(url, 'survey-metadata.csv', sep = '') %>%
+  read_csv()
+
+head(background)
+head(interest)
+```
+
+```{r}
+# data cleaning
+interest$lang[interest$response_id == 29] <- "Python"
+
+# Gathering simple 1 var summary
+interest %>%
+  count(lang) %>%
+  arrange(desc(n)) %>%
+  mutate("prop" = n / sum(n)) %>%
+  kable()
+```
+
+A majority of students enrolled in the PSTAT197A course prefer Python over R. Why is that? We might consider the specific use cases of the languages, whether that be for research or industry. Alternatively, we could examine the specific interests, or domain specialties, across each language preference.
+
+```{r}
+# Gathering ids for R users
+R_ids = interest %>%
+  filter(lang == "R") %>%
+  select(response_id)
+
+# Gathering ids for Python users
+Python_ids = interest %>%
+  filter(lang == "Python") %>%
+  select(response_id)
+```
+
+# Investigating Backgrounds
+```{r}
+# Get background information on all individuals who prefer R
+R_background = background %>%
+  filter(response_id %in% R_ids$response_id)
+
+R_background %>% 
+  head(n = 5)
+
+# Get background information on all individuals who prefer R
+Python_background = background %>%
+  filter(response_id %in% Python_ids$response_id)
+
+Python_background %>%
+  head(n = 5)
+
+# R research proportions
+R_rsrch_prop = R_background %>%
+  select(rsrch) %>%
+  count(rsrch) %>%
+  arrange(desc(n)) %>%
+  mutate("prop" = n / sum(n))
+
+kable(R_rsrch_prop)
+
+# Python research proportions
+Python_rsrch_prop = Python_background %>%
+  select(rsrch) %>%
+  count(rsrch) %>%
+  arrange(desc(n)) %>%
+  mutate("prop" = n / sum(n))
+
+kable(Python_rsrch_prop)
+```
+
+```{r}
+# Plotting
+
+R_rsrch_prop_plot = R_rsrch_prop %>%
+  ggplot(aes(x = rsrch, y = prop)) +
+  geom_bar(stat = "identity") +
+  scale_y_continuous(limits = c(0, 1)) +
+  labs(
+    title = "Past Research Experience",
+    subtitle = "For those preferring R",
+    x = "Past Research Experience",
+    y = "Proportion"
+  )
+
+
+Python_rsrch_prop_plot = Python_rsrch_prop %>%
+  ggplot(aes(x = rsrch, y = prop)) +
+  geom_bar(stat = "identity") +
+  scale_y_continuous(limits = c(0,1)) +
+  labs(title = "Past Research Experience",
+       subtitle = "For those preferring Python",
+       x = "Past Research Experience",
+       y = "Proportion")
+
+library(gridExtra)
+grid.arrange(
+  R_rsrch_prop_plot,
+  Python_rsrch_prop_plot,
+  nrow=1
+)
+```
+
+Upon examining the above plot, between those who prefer R and those who prefer Python, the former has a higher proportion of past research experience; almost by $10$%. These findings suggest that among those enrolled in PSTAT197A, R is a more research oriented language. 
+
+## Examining Domain Specialties
+
+Now that we understand a reason why certain students select R over Python, we naturally ask the question: how do coding language preferences influence domain specialties? Are these again, more geared towards research for R users, and likewise for industry for Python users?
+
+```{r}
+interest %>%
+  filter(lang == "R") %>%
+  separate_rows(dom, sep = ";") %>%   # Split each semicolon-separated string into new rows
+  count(dom, sort = TRUE) %>%
+  mutate(prop = n / sum(n)) %>%
+  kable()
+
+interest %>%
+  filter(lang == "Python") %>%
+  separate_rows(dom, sep = ";") %>%   # Split each semicolon-separated string into new rows
+  count(dom, sort = TRUE) %>%
+  mutate(prop = n / sum(n)) %>%
+  kable()
+```
+
+Among both language preferences, technology stands out as one of the predominant domain specialty. Otherwise, the selection of preferences is generally indistinguishable. What is clear is that R users have far less variation in comparison to Python users.
+
+## Conclusion
+
+After investigating research experience and domain specialties of R and Python users, it's clear that the former is more geared towards research purposes while the latter for industry. Furthermore, R users are more honed in on select set of domains, while Python users find themselves working in many.
