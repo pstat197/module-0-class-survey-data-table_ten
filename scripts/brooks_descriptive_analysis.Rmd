@@ -33,6 +33,7 @@ head(interest)
 ```{r}
 # data cleaning
 interest$lang[interest$response_id == 29] <- "Python"
+interest$dom[interest$response_id == 29] <- "Technology;Software development;Product engineering"
 
 # Gathering simple 1 var summary
 interest %>%
