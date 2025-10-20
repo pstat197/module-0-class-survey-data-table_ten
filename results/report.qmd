@@ -1,13 +1,7 @@
 ---
-<<<<<<< HEAD
 title: "Analysis of class surveys"
-subtitle: "If you want a subtitle put it here"
-author: "List names here"
-=======
-title: "Analysis of Class Surveys"
 subtitle: "PSTAT 197A Module 0"
 author: "Adarsh Nagar, Brooks Piper, Srin Sathish, Nicole Xu, Nini Yen, Quinlan Wilson"
->>>>>>> 69f671abb5652c0a2725eca48af8a80dbe142e2f
 date: last-modified
 published-title: "Updated"
 editor: visual
@@ -28,9 +22,44 @@ library(tidyverse)
 library(ggplot2)
 library(dplyr)
 library(scales)
+library(knitr)
+library(corrr)
+library(nnet)
 
 background <- read_csv('../data/background-clean.csv')
 interest <- read_csv('../data/interest-clean.csv')
+
+# Inner join by response ID
+data <- inner_join(background, interest, by = "response_id")
+
+# Only select needed columns
+data <- data %>%
+  select(lang, prog.prof, prog.comf, math.prof, math.comf)
+
+library(dplyr)
+
+data <- data %>%
+  mutate(
+    prog.prof.num = recode(prog.prof, "beg" = 1, "int" = 2, "adv" = 3
+    ),
+    math.prof.num = recode(math.prof, "beg" = 1, "int" = 2, "adv" = 3
+    )
+  )
+
+
+data_long <- data %>%
+  pivot_longer(
+    cols = c(prog.prof.num, prog.comf, math.prof.num, math.comf),
+    names_to = "skill_type",
+    values_to = "score"
+  ) %>%
+  mutate(
+    skill_type = recode(skill_type,
+                        "prog.prof.num" = "Programming Proficiency",
+                        "prog.comf" = "Programming Comfort",
+                        "math.prof.num" = "Math Proficiency",
+                        "math.comf" = "Math Comfort")
+  )
 
 all_data <- background %>% inner_join(interest, by = join_by(response_id)) %>% rename(c(domain_yn = dom.x, domain_type = dom.y, research_or_industry = do_you_have_any_preference_regarding_working_on_an_industry_project_or_a_research_lab_project))
 
@@ -202,16 +231,9 @@ The figure shows that a majority of those who prefer Python (79%) prefer to work
 It is also useful to examine the proportions of students who have past research experience and their programming language preference:
 
 ```{r}
-# Get background information on all individuals who prefer R
-R_background = background %>%
-  filter(response_id %in% R_ids$response_id)
-
-# Get background information on all individuals who prefer Python
-Python_background = background %>%
-  filter(response_id %in% Python_ids$response_id)
-
 # R research proportions
-R_rsrch_prop = R_background %>%
+R_rsrch_prop = inner_join(background, interest, by = "response_id") %>%
+  filter(lang == "R") %>%
   select(rsrch) %>%
   count(rsrch) %>%
   arrange(desc(n)) %>%
@@ -221,7 +243,8 @@ kable(R_rsrch_prop,
       caption = "Past research proportions for R preference")
 
 # Python research proportions
-Python_rsrch_prop = Python_background %>%
+Python_rsrch_prop = inner_join(background, interest, by = "response_id") %>%
+  filter(lang == "Python") %>%
   select(rsrch) %>%
   count(rsrch) %>%
   arrange(desc(n)) %>%
