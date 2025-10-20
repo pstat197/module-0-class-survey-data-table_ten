@@ -27,25 +27,151 @@ Write a one-paragraph abstract summarizing what you did and your findings. It ne
 
 ## Data description
 
-Write a brief description of the dataset. Your description should cover how data were obtained, sample characteristics, and measurements taken. It does not need to be exhaustive, but sufficiently detailed to convey a clear high-level understanding of the dataset. You can utilize bullet points or tables if you feel it would help improve clarity.
+-   **Source:** Survey distributed to all students offered enrollment in **PSTAT197A, Fall 2025**.
+
+-   **Sample Size:** 𝑛 = 60 responses.
+
+-   **Sampling:** No random selection. Can be considered:
+
+    -   A census of PSTAT197A enrollees, or
+
+    -   A convenience sample of students interested in **data science/capstones**.
+
+**Sample Characteristics:**
+
+| Characteristic       | Count | Percent |
+|----------------------|-------|---------|
+| **Class Standing**   |       |         |
+| Junior               | 9     | 15%     |
+| Senior               | 51    | 85%     |
+| **Gender Identity**  |       |         |
+| Female               | 28    | 46.7%   |
+| Male                 | 32    | 53.3%   |
+| **Race / Ethnicity** |       |         |
+| Asian                | 43    | 71.7%   |
+| Caucasian            | 13    | 21.7%   |
+| Multiracial          | 3     | 5%      |
+| Prefer not to say    | 1     | 1.7%    |
+
+**Consent for sharing:**
+
+| Share background | Share project preferences | Count |
+|------------------|---------------------------|-------|
+| Yes              | Yes                       | 49    |
+| Yes              | No                        | 2     |
+| No               | Yes                       | 3     |
+| No               | No                        | 6     |
+
+**Measurements Collected:**
+
+-   **Self-reported proficiency** in programming, math, and statistics: `beg`, `int`, `adv`.
+
+-   **Comfort levels** (numeric scale 1–5) in programming (`prog.comf`), math (`math.comf`), statistics (`stat.comf`).
+
+-   **Course history:** Counts of courses taken in departments like PSTAT, CS, LING, ECON.
+
+-   **Past research experience**, project preferences, and demographic info.
+
+**Notes on the dataset:**
+
+-   Personal information, free-text responses, and students who did not consent were removed.
+
+-   Some variables, like distinctions in research experiences, were simplified for analysis.
+
+**Summary Statistics:**
+
+| Variable  | Mean | Median | Min | Max |
+|-----------|------|--------|-----|-----|
+| prog.comf | 3.86 | 4      | 2   | 5   |
+| math.comf | 4.04 | 4      | 3   | 5   |
+| stat.comf | 4.04 | 4      | 2   | 5   |
+
+-   Proficiency levels (numeric) roughly align with comfort ratings:
+
+    -   `prog`: 2.9 (mean)
+
+    -   `math`: 2.78
+
+    -   `stat`: 2.83
 
 ## Questions of interest
 
 Indicate the questions your analysis addresses. These should map one-to-one to your findings. Don't include questions you didn't answer or questions you started with and refined later. If you would rather frame them as goals or tasks rather than questions that is okay; just modify the header appropriately. However you frame what you've done, you may only have two or three items; that is fine. Provide an itemized or numbered list so that the reader can easily identify your objectives.
 
-For example:
-
-> *We sought to understand the relationship between coursework preparation, self-assessed technical abilities, and comfort level with technical skills. We also sought to understand whether the relationships differed depending on having had prior research experience. Our analysis addressed three questions:*
->
-> 1.  *How should the coursework histories of students in the class be ordered from less preparation to extensive preparation?*
-> 2.  *Is coursework preparation associated with increased self-assessed technical skill and comfort within the sample?*
-> 3.  *Does prior research experience appear to be a substitute for coursework preparation with respect to self-assessed technical skill and comfort?*
-
-Notice that the questions are precise but not overly technical.
+3.  Does a student’s preferred programming language (R, Python, or no preference) influence their self-reported proficiency and comfort in programming and math?
 
 ## Findings
 
 Summarize your results. Don't try to explain every step you took; focus instead on providing the main data analytic outputs -- tables and figures -- and explaining clearly what they show. Clarify any important decisions you made in obtaining them. You can display codes if you like but it is not necessary.
+
+The following analyses examine how students’ programming language preference (R, Python, or No preference) relates to their proficiency and comfort in programming and math.
+
+**Comfort and Proficiency by Language**
+
+We first converted students’ self-reported proficiency levels in programming and math into numeric scores (1 = beginner, 2 = intermediate, 3 = advanced) and combined them with their comfort scores. The table below shows the ANOVA results testing for differences in these scores by language preference:
+
+```{r}
+background <- read_csv("../data/background-clean.csv")
+interest   <- read_csv("../data/interest-clean.csv")
+
+# Inner join by response ID
+data <- inner_join(background, interest, by = "response_id")
+
+# Only select needed columns
+data <- data %>%
+  select(lang, prog.prof, prog.comf, math.prof, math.comf)
+
+library(dplyr)
+
+# Turn text proficiency levels into numbers
+data <- data %>%
+  mutate(
+    prog.prof.num = recode(prog.prof, "beg" = 1, "int" = 2, "adv" = 3
+    ),
+    math.prof.num = recode(math.prof, "beg" = 1, "int" = 2, "adv" = 3
+    )
+  )
+
+# Pivot longer
+data_long <- data %>%
+  pivot_longer(
+    cols = c(prog.prof.num, prog.comf, math.prof.num, math.comf),
+    names_to = "skill_type",
+    values_to = "score"
+  ) %>%
+  mutate(
+    skill_type = recode(skill_type,
+                        "prog.prof.num" = "Programming Proficiency",
+                        "prog.comf" = "Programming Comfort",
+                        "math.prof.num" = "Math Proficiency",
+                        "math.comf" = "Math Comfort")
+  )
+
+# Run ANOVA: Does comfort/proficiency differ by language?
+anova_result <- aov(score ~ lang * skill_type, data = data_long)
+summary(anova_result)
+```
+
+The ANOVA indicates that **there is a significant difference between skill types** (Programming vs Math, Proficiency vs Comfort), but **no significant differences between languages** or their interaction with skill type. In other words, students’ comfort and proficiency levels are fairly similar across those preferring R, Python, or having no preference.
+
+**Visualization**
+
+The boxplot below illustrates the distributions of programming and math comfort and proficiency scores by language preference:
+
+```{r}
+# Visualize mean differences
+ggplot(data_long, aes(x = lang, y = score, fill = skill_type)) +
+  geom_boxplot() +
+  labs(
+    title = "Comfort and Proficiency by Language Preference",
+    x = "Language Preference",
+    y = "Score (1–5 scale or recoded proficiency)",
+    fill = "Skill Type"
+  ) +
+  theme_minimal()
+```
+
+From the plot, we see that **median scores are similar across language preferences** for both programming and math. Programming proficiency and comfort are slightly higher on average than math scores, consistent with the overall skill distribution in the class.
 
 ## Useful tips (remove this section)
 
