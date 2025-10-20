@@ -28,14 +28,44 @@ background %>%
 background %>%
   mutate(avg.comf = (math.comf + prog.comf + stat.comf)/3)
 
-#proficiency ratings of all respondents with research experience and 6-8 upper division courses
-background %>% filter(rsrch == TRUE & updv.num == "6-8") %>% select(prog.prof, math.prof, stat.prof)
+# Students with research experience and 6–8 upper-division courses
+research_6to8 <- background %>%
+  filter(rsrch == TRUE & updv.num == "6-8") %>%
+  select(prog.prof, math.prof, stat.prof) %>%
+  rename(
+    Programming_Proficiency = prog.prof,
+    Math_Proficiency = math.prof,
+    Statistics_Proficiency = stat.prof
+  )
 
-#proficiency ratings of all respondents without research experience and the same number of upper division courses
-background %>% filter(rsrch == FALSE & updv.num == "6-8") %>% select(prog.prof, math.prof, stat.prof)
+# Students without research experience and 6–8 upper-division courses
+no_research_6to8 <- background %>%
+  filter(rsrch == FALSE & updv.num == "6-8") %>%
+  select(prog.prof, math.prof, stat.prof) %>%
+  rename(
+    Programming_Proficiency = prog.prof,
+    Math_Proficiency = math.prof,
+    Statistics_Proficiency = stat.prof
+  )
 
-#median comfort level of all students in each subject area.
-background %>% select(contains(".comf")) %>% summarize_all(.funs = 'median')
+# Median comfort scores for all students
+median_comfort <- background %>%
+  select(contains(".comf")) %>%
+  rename(
+    Programming_Comfort = prog.comf,
+    Math_Comfort = math.comf,
+    Statistics_Comfort = stat.comf
+  ) %>%
+  summarize_all(.funs = median)
 
-#median comfort level of all students in each subject area after grouping by number of upper division classes taken
-background %>% group_by(updv.num) %>% select(contains(".comf")) %>% summarize_all(.funs = 'median')
+# Median comfort scores by number of upper-division courses
+median_comfort_by_updv <- background %>%
+  group_by(updv.num) %>%
+  select(contains(".comf")) %>%
+  rename(
+    Programming_Comfort = prog.comf,
+    Math_Comfort = math.comf,
+    Statistics_Comfort = stat.comf
+  ) %>%
+  summarize_all(.funs = median)
+
