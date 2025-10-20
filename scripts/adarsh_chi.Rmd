@@ -80,9 +80,9 @@ observed <- as.data.frame(tbl)
 
 observed <- as.data.frame(tbl)
 ggplot(observed, aes(x = Var1, y = Var2, fill = Freq)) +
-  geom_tile(color = "grey70") +
+  geom_tile() +
   geom_text(aes(label = Freq), size = 3, color = "white") +
-  scale_fill_gradient(low = "steelblue4", high = "lightblue") +
+  scale_fill_gradient(low = "darkblue", high = "lightblue") +
   labs(
     title = "Observed Contingency Table (Chi-Square Test Inputs)",
     fill = "Observed Count",
