@@ -1,0 +1,142 @@
+---
+title: "Domain Interest vs. Language Preference Statistics"
+author: "Adarsh Nagar"
+date: "2025-10-09"
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# Introduction:
+
+Today we will be exploring the relationship between the language comfortability/preference from the intake form and individual domain interest for 2025 Data
+Science Capstone projects.
+
+
+
+### Import the data
+```{r, warning=FALSE}
+library(tidyverse)
+
+# retrieve class survey data
+url <- 'https://raw.githubusercontent.com/pstat197/pstat197a/main/materials/labs/lab2-tidyverse/data/'
+
+background <- paste(url, 'background-clean.csv', sep = '') %>%
+  read_csv()
+
+interest <- paste(url, 'interest-clean.csv', sep = '') %>%
+  read_csv()
+interest$lang[interest$response_id == 29] <- "Python"
+interest$dom[interest$response_id == 29] <- "Technology;Software development;Product engineering"
+
+metadata <- paste(url, 'survey-metadata.csv', sep = '') %>%
+  read_csv()
+
+```
+
+### EDA & Satisfying Expectations
+
+```{r}
+library(ggplot2)
+library(dplyr)
+
+# Extract exact columns
+consolidated_csv <- interest[3:4]
+consolidated_df <- data.frame(consolidated_csv)
+
+#Total Counts for each domain
+expanded_df <- consolidated_csv |> 
+  separate_rows(dom,sep =";") |>
+  mutate(dom = trimws(dom))
+
+# summarize to lang × dom counts 
+plot_data <- expanded_df |>
+  count(lang, dom, name = "n") |>
+  mutate(lang = fct_reorder(lang, n, .fun = sum)) 
+
+# Bar Plot (Frequency + Language)
+stacked <- ggplot(plot_data, aes(y = n, x = lang, fill = dom)) +
+  geom_col(position = position_dodge(width = 0.9)) +
+  labs(title = "Plot 1: Domain Interest by Languge",
+       x = "Language Preference", y = "Count", fill = "Domain") +
+theme(legend.position = "right") + geom_hline(yintercept = 5,color="black") 
+stacked
+
+# Proportions Stacked Barplot
+ggplot(expanded_df, aes(x = lang, fill = dom)) +
+  geom_bar(position = "fill") +
+  labs(title = "Plot 2: Proportion of Domain Interests by Language",
+       x = "Language", y = "Proportion") +
+  theme_minimal()
+
+# List of Satisfying
+tbl <- table(expanded_df$lang, expanded_df$dom)
+chi <- suppressWarnings(chisq.test(tbl))
+expected <- as.data.frame(as.table(chi$expected))
+observed <- as.data.frame(tbl)
+
+
+observed <- as.data.frame(tbl)
+ggplot(observed, aes(x = Var1, y = Var2, fill = Freq)) +
+  geom_tile(color = "grey70") +
+  geom_text(aes(label = Freq), size = 3, color = "white") +
+  scale_fill_gradient(low = "steelblue4", high = "lightblue") +
+  labs(
+    title = "Observed Contingency Table (Chi-Square Test Inputs)",
+    fill = "Observed Count",
+    x = "Language Preference",
+    y = "Domain Interest"
+  ) +
+  theme_minimal()
+
+```
+
+
+# Statistical Testing
+```{r}
+# Monte Carlo Simulation Chi-Square Test
+chi_sim <- chisq.test(tbl, simulate.p.value = TRUE, B = 10000)
+print(chi_sim)
+```
+
+
+# Results & Findings
+
+Examining the exhibits, the observed relationship between language preference and
+domain interest data appears to be variable and slightly skewed. Specifically, observing
+Plot 1, there appears to be a larger amount of interest and thus larger amounts 
+of data within Python interest (specifically among Technology and Software 
+Development), while the remaining two categories, still with a considerable 
+density of information, appear greatly spread across all domains. 
+
+This visual phenomena is further illustrated in Plot 2, where similar densities 
+of domain interest in each specific language preference appears more similar 
+by proportional comparison. Going forward, this insight will prove to beneficial
+as a demonstration of visually-consistent variation among language groups.
+
+As a preliminary measure to understanding the statistical eligibility for Chi-Square
+Testing, Plot 3 presents a contingency table for Chi-Square Testing. Hoping to suffice
+the requirement of $$ x > 5$$ for each cell of x observations between domains and languages,
+this plot exposes the lack of satisfaction and poses an imminent threat to statistical accuracy.
+Specifically, we realize 13 among the 45 cells fail to satisfy the Chi-Square Test.
+
+Since the Asymptotic approximation of Chi-Square is not possible with such small
+frequencies, we defer to the use of the Monte Carlo simulated Chi-Square Test to
+generate a proportion of simulated statistics across 10,000 contingency tables.
+This result has yielded a p-value of $$p = 0.6478$$, proving that our observed
+statistic reinforces the result that there is no statistically significant 
+association between programming language preference and domain of interest. Albeit
+selected under such circumstances, potential drawbacks include a loss of randomness derived
+in bootstrapping and computational intensity. While the size of the data is relatively small,
+considering its observations contain the sole interests of the 2025 Capstone Cohort, perhaps
+this sparseness could be combatted in the future with data aggregation across multiple
+term cohorts.
+
+
+
+
+
+
+
