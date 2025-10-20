@@ -1,0 +1,249 @@
+---
+title: "Tidyverse basics"
+author: "Brooks Piper"
+date: "2025-10-08"
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Tidyverse basics
+
+```{r}
+library(tidyverse)
+
+# retrieve class survey data
+url <- 'https://raw.githubusercontent.com/pstat197/pstat197a/main/materials/labs/lab2-tidyverse/data/'
+
+background <- paste(url, 'background-clean.csv', sep = '') %>%
+  read_csv()
+
+interest <- paste(url, 'interest-clean.csv', sep = '') %>%
+  read_csv()
+
+metadata <- paste(url, 'survey-metadata.csv', sep = '') %>%
+  read_csv()
+```
+
+```{r}
+# print the data frame for inspection in the console
+background
+```
+
+```{r}
+# open as a spreadsheet in a separate viewer
+view(background)
+```
+
+
+## dplyr verbs
+
+```{r}
+# filter rows
+background %>%
+  filter(math.comf > 3)
+```
+
+```{r}
+# select a column
+background %>%
+  select(math.comf)
+```
+
+```{r}
+# pull a column
+background %>%
+  pull(rsrch)
+```
+
+```{r}
+# define a new variable
+background %>%
+  mutate(avg.comf = (math.comf + prog.comf + stat.comf)/3)
+```
+
+```{r}
+# sequence of verbs
+background %>%
+  filter(stat.prof == 'adv') %>%
+  mutate(avg.comf = (math.comf + prog.comf + stat.comf)/3) %>%
+  select(avg.comf, rsrch) 
+```
+
+```{r}
+# Write a chain of verbs in order to find the 
+# proficiency ratings of all respondents with 
+# research experience and 6-8 upper division 
+# courses.
+background %>%
+  filter((rsrch == TRUE) & (updv.num == '6-8')) %>%
+  select(contains('.comf'))
+```
+
+```{r}
+# Write a chain of verbs in order to find the 
+# proficiency ratings of all respondents without 
+# research experience and the same number of upper
+# division courses
+background %>%
+  filter((rsrch == FALSE) & (updv.num == '0-2')) %>%
+  select(contains('.comf'))
+```
+
+## Summaries
+
+```{r}
+# a summary
+background %>%
+  filter(stat.prof == 'adv') %>%
+  mutate(avg.comf = (math.comf + prog.comf + stat.comf)/3) %>%
+  select(avg.comf, rsrch) %>%
+  summarize(prop.rsrch = mean(rsrch))
+```
+
+```{r}
+# equivalent
+background %>%
+  filter(stat.prof == 'adv') %>%
+  mutate(avg.comf = (math.comf + prog.comf + stat.comf)/3) %>%
+  select(avg.comf, rsrch) %>%
+  pull(rsrch) %>%
+  mean()
+```
+
+```{r}
+background %>%
+  filter(stat.prof == 'adv') %>%
+  mutate(avg.comf = (math.comf + prog.comf + stat.comf)/3) %>%
+  select(avg.comf, rsrch) %>%
+  summarize(prop.rsrch = mean(rsrch),
+            med.comf = median(avg.comf))
+```
+
+```{r}
+# average comfort levels across all students
+background %>%
+  select(contains('comf')) %>%
+  summarise_all(.funs = mean)
+```
+
+```{r}
+# create a grouping
+background %>%
+  group_by(stat.prof)
+```
+
+```{r}
+# count observations
+background %>%
+  group_by(stat.prof) %>%
+  count()
+```
+
+```{r}
+# a grouped summary
+background %>%
+  group_by(stat.prof) %>%
+  select(contains('.comf')) %>%
+  summarize_all(.funs = mean)
+```
+
+```{r}
+#C ompute the median comfort level of all students
+# in each subject area.
+
+background %>%
+  select(contains('comf')) %>%
+  summarize_all(.funs = median)
+```
+
+```{r}
+# Compute the median comfort level of all students in # each subject area after grouping by number of upper # division classes taken.
+
+background %>%
+  group_by(updv.num) %>%
+  select(contains('comf')) %>%
+  summarize_all(.funs = median)
+```
+
+## tidyr verbs
+
+```{r}
+# many variables, many summaries
+comf_sum <- background %>%
+  select(contains('comf')) %>%
+  summarise_all(.funs = list(mean = mean, 
+                             median = median,
+                             min = min, 
+                             max = max))
+
+comf_sum
+```
+
+```{r}
+# gather columns into long format
+comf_sum %>% gather(stat, val) 
+```
+
+```{r}
+# separate into rows and columns
+comf_sum %>%
+  gather(stat, val) %>%
+  separate(stat, into = c('variable', 'stat'), sep = '_') 
+```
+
+```{r}
+# spread into table
+comf_sum %>%
+  gather(stat, val) %>%
+  separate(stat, into = c('variable', 'stat'), sep = '_') %>%
+  spread(stat, val)
+```
+
+## ggplot
+```{r}
+# summary of classes taken
+
+classes <- background %>%
+  select(11:28) %>%
+  mutate(across(everything(), ~ ifelse(.x == 1, "yes", "no"))) %>%
+  mutate(across(everything(), ~ factor(.x, levels = c("no", "yes")))) %>%
+  summarize(across(everything(), ~ mean(as.numeric(.x) - 1, na.rm = TRUE))) %>%
+  gather(class, proportion)
+
+classes
+```
+
+```{r}
+classes %>% arrange(desc(proportion))
+```
+
+```{r}
+classes %>% arrange(desc(proportion))
+```
+
+```{r}
+# plot it
+classes %>%
+  ggplot(aes(x = proportion, y = class)) +
+  geom_point()
+```
+
+```{r}
+fig <- classes %>%
+  ggplot(aes(x = proportion, y = reorder(class, proportion))) +
+  geom_point()
+
+fig
+```
+
+```{r}
+# adjust labels
+fig + labs(x = 'proportion of class', y = '')
+```
+
+
+
+
