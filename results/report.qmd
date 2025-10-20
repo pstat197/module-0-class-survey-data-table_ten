@@ -1,7 +1,13 @@
 ---
+<<<<<<< HEAD
 title: "Analysis of class surveys"
 subtitle: "If you want a subtitle put it here"
 author: "List names here"
+=======
+title: "Analysis of Class Surveys"
+subtitle: "PSTAT 197A Module 0"
+author: "Adarsh Nagar, Brooks Piper, Srin Sathish, Nicole Xu, Nini Yen, Quinlan Wilson"
+>>>>>>> 69f671abb5652c0a2725eca48af8a80dbe142e2f
 date: last-modified
 published-title: "Updated"
 editor: visual
@@ -33,7 +39,7 @@ all_data$lang[all_data$response_id == 29] <- "Python"
 
 ## Executive summary
 
-Write a one-paragraph abstract summarizing what you did and your findings. It need not be comprehensive; try to highlight the most important or interesting outcomes.
+This analysis examined how this year's PSTAT Capstone students' programming language preferences (R, Python, or no preference) relate to their academic background, skills, and interests. The analyses found that language preference correlates with coursework patterns (students preferring R had taken more PSTAT courses while Python-preferring students completed more CS courses), and with project type interests (with Python-preferring students more likely to pursue industry-sponsored projects). Additionally, while some trends emerged in data science interests (Python-preferring students showed more interest in natural language processing and software engineering, while R-preferring students favored statistical methods), a logistic regression model found no statistically significant relationship between research interests and language preference overall, likely due to the small sample size. Overall, the findings suggest that language preference reflects background and career interests.
 
 ## Data description
 
@@ -105,6 +111,8 @@ Write a one-paragraph abstract summarizing what you did and your findings. It ne
     -   `stat`: 2.83
 
 ## Questions of interest
+
+We sought to understand how students’ programming language preferences relate to their academic background, skills, and project interests.In particular, we examined whether language preference aligns with coursework patterns in different departments, students’ domain interests, project type preferences (industry vs. research), class level or standing, and overall academic background. Our analysis addressed the following questions:
 
 We sought to understand how PSTAT 197A students’ programming language preferences relate to their academic background, skills, and project interests. In particular, we examined whether language preference aligns with coursework patterns in different departments, students’ domain interests, project type preferences (industry vs. research), class level or standing, and overall academic background.
 
@@ -377,7 +385,7 @@ Above, we see that an interest in algorithms is fairly positively correlated wit
 
 ### Statistical Testing
 
-#### **Comfort and Proficiency by Language**
+#### Comfort and Proficiency by Language
 
 We first converted students’ self-reported proficiency levels in programming and math into numeric scores (1 = beginner, 2 = intermediate, 3 = advanced) and combined them with their comfort scores. The table below shows the ANOVA results testing for differences in these scores by language preference:
 
