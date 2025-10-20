@@ -285,7 +285,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="questions-of-interest" class="level2">
 <h2 class="anchored" data-anchor-id="questions-of-interest">Questions of interest</h2>
-<p>Indicate the questions your analysis addresses. These should map one-to-one to your findings. Don’t include questions you didn’t answer or questions you started with and refined later. If you would rather frame them as goals or tasks rather than questions that is okay; just modify the header appropriately. However you frame what you’ve done, you may only have two or three items; that is fine. Provide an itemized or numbered list so that the reader can easily identify your objectives.</p>
 <p>We sought to understand how students’ programming language preferences relate to their academic background, skills, and project interests.In particular, we examined whether language preference aligns with coursework patterns in different departments, students’ domain interests, project type preferences (industry vs.&nbsp;research), class level or standing, and overall academic background. Our analysis addressed the following questions:</p>
 <ol type="1">
 <li><p>How does students’ academic background and preparation relate to their programming language preference?</p></li>
@@ -295,6 +294,42 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="findings" class="level2">
 <h2 class="anchored" data-anchor-id="findings">Findings</h2>
+<section id="language-and-project-preferences" class="level3">
+<h3 class="anchored" data-anchor-id="language-and-project-preferences">Language and Project Preferences</h3>
+<p>The following chart displays the distribution of students that prefer each programming language in the class. As shown, a majority of students (around 60%) prefer Python, around 22% of students are not partial toward either language, and around 18% of the class prefers R.</p>
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="report_files/figure-html/unnamed-chunk-2-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>The bar chart below illustrates the relationship between students’ project type preferences and their preferred programming language. The figure shows that a majority of those who prefer Python (79%) prefer to work on an industry-sponsored project, whereas a majority of students that prefer R either do not prefer one type of project over another. This may be due to the fact that Python is more prevalent in the industry, so students who prefer Python are more likely to seek industry-sponsored projects rather that research-based projects, which tend to use R.</p>
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="report_files/figure-html/unnamed-chunk-3-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="language-and-coursework" class="level3">
+<h3 class="anchored" data-anchor-id="language-and-coursework">Language and Coursework</h3>
+<p>The following chart shows that programming language preference is associated with coursework patterns. Students preferring R have taken more PSTAT courses (5.22 average) compared to Python-preferring students (4.55), showing more PSTAT coursework and experience is correlated with R preference. Conversely, Python-preferring students have completed more CS courses (1.52 vs.&nbsp;1.11), aligning with Python’s prominence in computer science. ECON and LING courses show less variation across language preferences, suggesting they don’t heavily influence language choice. Overall, the data indicates that students’ language preferences reflect their disciplinary preparation.</p>
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="report_files/figure-html/unnamed-chunk-4-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
 <section id="language-and-proficiency" class="level3">
 <h3 class="anchored" data-anchor-id="language-and-proficiency">Language and Proficiency</h3>
 <p>The following analyses examine how students’ programming language preference (R, Python, or No preference) relates to their proficiency and comfort in programming and math.</p>
@@ -318,47 +353,12 @@ Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="report_files/figure-html/unnamed-chunk-3-1.png" class="img-fluid figure-img" width="672"></p>
-</figure>
-</div>
-</div>
-</div>
-<p>From the plot, we see that <strong>median scores are similar across language preferences</strong> for both programming and math. Programming proficiency and comfort are slightly higher on average than math scores, consistent with the overall skill distribution in the class. The following chart displays the distribution of students that prefer each programming language in the class. As shown, a majority of students (around 60%) prefer Python, around 22% of students are not partial toward either language, and around 18% of the class prefers R.</p>
-</section>
-<section id="language-and-project-preferences" class="level3">
-<h3 class="anchored" data-anchor-id="language-and-project-preferences">Language and Project Preferences</h3>
-<div class="cell">
-<div class="cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="report_files/figure-html/unnamed-chunk-4-1.png" class="img-fluid figure-img" width="672"></p>
-</figure>
-</div>
-</div>
-</div>
-<p>The bar chart below illustrates the relationship between students’ project type preferences and their preferred programming language. The figure shows that a majority of those who prefer Python (79%) prefer to work on an industry-sponsored project, whereas a majority of students that prefer R either do not prefer one type of project over another. This may be due to the fact that Python is more prevalent in the industry, so students who prefer Python are more likely to seek industry-sponsored projects rather that research-based projects, which tend to use R.</p>
-<div class="cell">
-<div class="cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="report_files/figure-html/unnamed-chunk-5-1.png" class="img-fluid figure-img" width="672"></p>
-</figure>
-</div>
-</div>
-</div>
-</section>
-<section id="language-and-coursework" class="level3">
-<h3 class="anchored" data-anchor-id="language-and-coursework">Language and Coursework</h3>
-<p>The following chart shows that programming language preference is associated with coursework patterns. Students preferring R have taken more PSTAT courses (5.22 average) compared to Python-preferring students (4.55), showing more PSTAT coursework and experience is correlated with R preference. Conversely, Python-preferring students have completed more CS courses (1.52 vs.&nbsp;1.11), aligning with Python’s prominence in computer science. ECON and LING courses show less variation across language preferences, suggesting they don’t heavily influence language choice. Overall, the data indicates that students’ language preferences reflect their disciplinary preparation.</p>
-<div class="cell">
-<div class="cell-output-display">
-<div>
-<figure class="figure">
 <p><img src="report_files/figure-html/unnamed-chunk-6-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
 </div>
+<p>From the plot, we see that <strong>median scores are similar across language preferences</strong> for both programming and math. Programming proficiency and comfort are slightly higher on average than math scores, consistent with the overall skill distribution in the class. The following chart displays the distribution of students that prefer each programming language in the class. As shown, a majority of students (around 60%) prefer Python, around 22% of students are not partial toward either language, and around 18% of the class prefers R.</p>
 </section>
 <section id="language-and-data-science-interests" class="level3">
 <h3 class="anchored" data-anchor-id="language-and-data-science-interests">Language and Data Science Interests</h3>
