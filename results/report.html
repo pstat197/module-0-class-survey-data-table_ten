@@ -6,10 +6,10 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="author" content="List names here">
+<meta name="author" content="Adarsh Nagar, Brooks Piper, Srinidhi Sathish, Nicole Xu, Nini Yen">
 <meta name="dcterms.date" content="2025-10-19">
 
-<title>Analysis of class surveys</title>
+<title>Analysis of Class Surveys</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -83,8 +83,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Analysis of class surveys</h1>
-<p class="subtitle lead">If you want a subtitle put it here</p>
+<h1 class="title">Analysis of Class Surveys</h1>
+<p class="subtitle lead">PSTAT 197A Module 0</p>
 </div>
 
 
@@ -94,7 +94,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <div>
     <div class="quarto-title-meta-heading">Author</div>
     <div class="quarto-title-meta-contents">
-             <p>List names here </p>
+             <p>Adarsh Nagar, Brooks Piper, Srinidhi Sathish, Nicole Xu, Nini Yen </p>
           </div>
   </div>
     
@@ -113,38 +113,207 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
-<p>Use this as a template. Keep the headers and remove all other text. Overall, your report may be quite short. When it is complete, render and then push changes to your team repository.</p>
 <section id="executive-summary" class="level2">
 <h2 class="anchored" data-anchor-id="executive-summary">Executive summary</h2>
 <p>Write a one-paragraph abstract summarizing what you did and your findings. It need not be comprehensive; try to highlight the most important or interesting outcomes.</p>
 </section>
 <section id="data-description" class="level2">
 <h2 class="anchored" data-anchor-id="data-description">Data description</h2>
-<p>Write a brief description of the dataset. Your description should cover how data were obtained, sample characteristics, and measurements taken. It does not need to be exhaustive, but sufficiently detailed to convey a clear high-level understanding of the dataset. You can utilize bullet points or tables if you feel it would help improve clarity.</p>
+<ul>
+<li><p><strong>Source:</strong> Survey distributed to all students offered enrollment in <strong>PSTAT197A, Fall 2025</strong>.</p></li>
+<li><p><strong>Sample Size:</strong> 𝑛 = 60 responses.</p></li>
+<li><p><strong>Sampling:</strong> No random selection. Can be considered:</p>
+<ul>
+<li><p>A census of PSTAT197A enrollees, or</p></li>
+<li><p>A convenience sample of students interested in <strong>data science/capstones</strong>.</p></li>
+</ul></li>
+</ul>
+<p><strong>Sample Characteristics:</strong></p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Characteristic</th>
+<th>Count</th>
+<th>Percent</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>Class Standing</strong></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="even">
+<td>Junior</td>
+<td>9</td>
+<td>15%</td>
+</tr>
+<tr class="odd">
+<td>Senior</td>
+<td>51</td>
+<td>85%</td>
+</tr>
+<tr class="even">
+<td><strong>Gender Identity</strong></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="odd">
+<td>Female</td>
+<td>28</td>
+<td>46.7%</td>
+</tr>
+<tr class="even">
+<td>Male</td>
+<td>32</td>
+<td>53.3%</td>
+</tr>
+<tr class="odd">
+<td><strong>Race / Ethnicity</strong></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="even">
+<td>Asian</td>
+<td>43</td>
+<td>71.7%</td>
+</tr>
+<tr class="odd">
+<td>Caucasian</td>
+<td>13</td>
+<td>21.7%</td>
+</tr>
+<tr class="even">
+<td>Multiracial</td>
+<td>3</td>
+<td>5%</td>
+</tr>
+<tr class="odd">
+<td>Prefer not to say</td>
+<td>1</td>
+<td>1.7%</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Consent for sharing:</strong></p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Share background</th>
+<th>Share project preferences</th>
+<th>Count</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Yes</td>
+<td>Yes</td>
+<td>49</td>
+</tr>
+<tr class="even">
+<td>Yes</td>
+<td>No</td>
+<td>2</td>
+</tr>
+<tr class="odd">
+<td>No</td>
+<td>Yes</td>
+<td>3</td>
+</tr>
+<tr class="even">
+<td>No</td>
+<td>No</td>
+<td>6</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Measurements Collected:</strong></p>
+<ul>
+<li><p><strong>Self-reported proficiency</strong> in programming, math, and statistics: <code>beg</code>, <code>int</code>, <code>adv</code>.</p></li>
+<li><p><strong>Comfort levels</strong> (numeric scale 1–5) in programming (<code>prog.comf</code>), math (<code>math.comf</code>), statistics (<code>stat.comf</code>).</p></li>
+<li><p><strong>Course history:</strong> Counts of courses taken in departments like PSTAT, CS, LING, ECON.</p></li>
+<li><p><strong>Past research experience</strong>, project preferences, and demographic info.</p></li>
+</ul>
+<p><strong>Notes on the dataset:</strong></p>
+<ul>
+<li><p>Personal information, free-text responses, and students who did not consent were removed.</p></li>
+<li><p>Some variables, like distinctions in research experiences, were simplified for analysis.</p></li>
+</ul>
+<p><strong>Summary Statistics:</strong></p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Variable</th>
+<th>Mean</th>
+<th>Median</th>
+<th>Min</th>
+<th>Max</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>prog.comf</td>
+<td>3.86</td>
+<td>4</td>
+<td>2</td>
+<td>5</td>
+</tr>
+<tr class="even">
+<td>math.comf</td>
+<td>4.04</td>
+<td>4</td>
+<td>3</td>
+<td>5</td>
+</tr>
+<tr class="odd">
+<td>stat.comf</td>
+<td>4.04</td>
+<td>4</td>
+<td>2</td>
+<td>5</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li><p>Proficiency levels (numeric) roughly align with comfort ratings:</p>
+<ul>
+<li><p><code>prog</code>: 2.9 (mean)</p></li>
+<li><p><code>math</code>: 2.78</p></li>
+<li><p><code>stat</code>: 2.83</p></li>
+</ul></li>
+</ul>
 </section>
 <section id="questions-of-interest" class="level2">
 <h2 class="anchored" data-anchor-id="questions-of-interest">Questions of interest</h2>
 <p>Indicate the questions your analysis addresses. These should map one-to-one to your findings. Don’t include questions you didn’t answer or questions you started with and refined later. If you would rather frame them as goals or tasks rather than questions that is okay; just modify the header appropriately. However you frame what you’ve done, you may only have two or three items; that is fine. Provide an itemized or numbered list so that the reader can easily identify your objectives.</p>
 <p>We sought to understand how students’ programming language preferences relate to their academic background, skills, and project interests.In particular, we examined whether language preference aligns with coursework patterns in different departments, students’ domain interests, project type preferences (industry vs.&nbsp;research), class level or standing, and overall academic background. Our analysis addressed the following questions:</p>
 <ol type="1">
-<li>How does students’ academic background and preparation relate to their programming language preference?</li>
-<li>How do students’ programming language preferences influence their interests and coursework choices?</li>
+<li><p>How does students’ academic background and preparation relate to their programming language preference?</p></li>
+<li><p>How do students’ programming language preferences influence their interests and coursework choices?</p></li>
+<li><p>Does a student’s preferred programming language (R, Python, or no preference) influence their self-reported proficiency and comfort in programming and math?</p></li>
 </ol>
 </section>
 <section id="findings" class="level2">
 <h2 class="anchored" data-anchor-id="findings">Findings</h2>
-<p>Summarize your results. Don’t try to explain every step you took; focus instead on providing the main data analytic outputs – tables and figures – and explaining clearly what they show. Clarify any important decisions you made in obtaining them. You can display codes if you like but it is not necessary.</p>
-<p>The following chart displays the distribution of students that prefer each programming language in the class. As shown, a majority of students (around 60%) prefer Python, around 22% of students are not partial toward either language, and around 18% of the class prefers R.</p>
+<section id="language-and-proficiency" class="level3">
+<h3 class="anchored" data-anchor-id="language-and-proficiency">Language and Proficiency</h3>
+<p>The following analyses examine how students’ programming language preference (R, Python, or No preference) relates to their proficiency and comfort in programming and math.</p>
+<p><strong>Comfort and Proficiency by Language</strong></p>
+<p>We first converted students’ self-reported proficiency levels in programming and math into numeric scores (1 = beginner, 2 = intermediate, 3 = advanced) and combined them with their comfort scores. The table below shows the ANOVA results testing for differences in these scores by language preference:</p>
 <div class="cell">
-<div class="cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="report_files/figure-html/unnamed-chunk-2-1.png" class="img-fluid figure-img" width="672"></p>
-</figure>
+<div class="cell-output cell-output-stdout">
+<pre><code>                 Df Sum Sq Mean Sq F value Pr(&gt;F)    
+lang              2   0.14    0.07   0.162  0.850    
+skill_type        3 121.92   40.64  91.555 &lt;2e-16 ***
+lang:skill_type   6   4.26    0.71   1.601  0.149    
+Residuals       184  81.67    0.44                   
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
 </div>
 </div>
-</div>
-<p>The bar chart below illustrates the relationship between students’ project type preferences and their preferred programming language. The figure shows that a majority of those who prefer Python (79%) prefer to work on an industry-sponsored project, whereas a majority of students that prefer R either do not prefer one type of project over another. This may be due to the fact that Python is more prevalent in the industry, so students who prefer Python are more likely to seek industry-sponsored projects rather that research-based projects, which tend to use R.</p>
+<p>The ANOVA indicates that <strong>there is a significant difference between skill types</strong> (Programming vs Math, Proficiency vs Comfort), but <strong>no significant differences between languages</strong> or their interaction with skill type. In other words, students’ comfort and proficiency levels are fairly similar across those preferring R, Python, or having no preference.</p>
+<p><strong>Visualization</strong></p>
+<p>The boxplot below illustrates the distributions of programming and math comfort and proficiency scores by language preference:</p>
 <div class="cell">
 <div class="cell-output-display">
 <div>
@@ -154,7 +323,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 </div>
-<p>The following chart shows that programming language preference is associated with coursework patterns. Students preferring R have taken more PSTAT courses (5.22 average) compared to Python-preferring students (4.55), showing more PSTAT coursework and experience is correlated with R preference. Conversely, Python-preferring students have completed more CS courses (1.52 vs.&nbsp;1.11), aligning with Python’s prominence in computer science. ECON and LING courses show less variation across language preferences, suggesting they don’t heavily influence language choice. Overall, the data indicates that students’ language preferences reflect their disciplinary preparation.</p>
+<p>From the plot, we see that <strong>median scores are similar across language preferences</strong> for both programming and math. Programming proficiency and comfort are slightly higher on average than math scores, consistent with the overall skill distribution in the class. The following chart displays the distribution of students that prefer each programming language in the class. As shown, a majority of students (around 60%) prefer Python, around 22% of students are not partial toward either language, and around 18% of the class prefers R.</p>
+</section>
+<section id="language-and-project-preferences" class="level3">
+<h3 class="anchored" data-anchor-id="language-and-project-preferences">Language and Project Preferences</h3>
 <div class="cell">
 <div class="cell-output-display">
 <div>
@@ -164,7 +336,290 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 </div>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>{r}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>The bar chart below illustrates the relationship between students’ project type preferences and their preferred programming language. The figure shows that a majority of those who prefer Python (79%) prefer to work on an industry-sponsored project, whereas a majority of students that prefer R either do not prefer one type of project over another. This may be due to the fact that Python is more prevalent in the industry, so students who prefer Python are more likely to seek industry-sponsored projects rather that research-based projects, which tend to use R.</p>
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="report_files/figure-html/unnamed-chunk-5-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="language-and-coursework" class="level3">
+<h3 class="anchored" data-anchor-id="language-and-coursework">Language and Coursework</h3>
+<p>The following chart shows that programming language preference is associated with coursework patterns. Students preferring R have taken more PSTAT courses (5.22 average) compared to Python-preferring students (4.55), showing more PSTAT coursework and experience is correlated with R preference. Conversely, Python-preferring students have completed more CS courses (1.52 vs.&nbsp;1.11), aligning with Python’s prominence in computer science. ECON and LING courses show less variation across language preferences, suggesting they don’t heavily influence language choice. Overall, the data indicates that students’ language preferences reflect their disciplinary preparation.</p>
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="report_files/figure-html/unnamed-chunk-6-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="language-and-data-science-interests" class="level3">
+<h3 class="anchored" data-anchor-id="language-and-data-science-interests">Language and Data Science Interests</h3>
+<p>Next we examine what areas of data science each language preference group is interested in. We start by separating out each of the possible areas through one-hot encoding so we can take a look at some of the patterns of area interest between the language groups.</p>
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="report_files/figure-html/unnamed-chunk-8-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>As we’ve already found, there is an overall preference for Python over R. Those that prefer Python have the most interest in natural language processing and software engineering. Meanwhile those that prefer R appear to be more interested in statistical models and inference, predictive modeling, and image classification. Students with no preference show the most interest in data visualization and spatial statistics/time series.</p>
+<p>In the table below, we can also take a look at whether or not there are correlations between the different areas of data science interest. We see for example, that an interest in algorithms is fairly positively correlated with an interest in natural language processing. On the other hand, an interest in algorithms is a little negatively correlated with an interest in deep learning and neural networks. Overall, there are some slight correlations between all the areas of interest, which makes sense as they all fall under a general interest in data science.</p>
+<div class="cell">
+<div class="cell-output-display">
+<table class="caption-top table table-sm table-striped small">
+<colgroup>
+<col style="width: 9%">
+<col style="width: 7%">
+<col style="width: 7%">
+<col style="width: 8%">
+<col style="width: 8%">
+<col style="width: 7%">
+<col style="width: 9%">
+<col style="width: 7%">
+<col style="width: 7%">
+<col style="width: 7%">
+<col style="width: 9%">
+<col style="width: 7%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">term</th>
+<th style="text-align: right;">area_image</th>
+<th style="text-align: right;">area_dlnn</th>
+<th style="text-align: right;">area_spatial</th>
+<th style="text-align: right;">area_dataeng</th>
+<th style="text-align: right;">area_nlp</th>
+<th style="text-align: right;">area_software</th>
+<th style="text-align: right;">area_vis</th>
+<th style="text-align: right;">area_pred</th>
+<th style="text-align: right;">area_stat</th>
+<th style="text-align: right;">area_database</th>
+<th style="text-align: right;">area_algo</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">area_image</td>
+<td style="text-align: right;">NA</td>
+<td style="text-align: right;">0.1997796</td>
+<td style="text-align: right;">-0.2173067</td>
+<td style="text-align: right;">0.1732674</td>
+<td style="text-align: right;">0.2395677</td>
+<td style="text-align: right;">0.3531250</td>
+<td style="text-align: right;">0.2016716</td>
+<td style="text-align: right;">0.0280056</td>
+<td style="text-align: right;">0.1406102</td>
+<td style="text-align: right;">0.2350080</td>
+<td style="text-align: right;">0.1738343</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">area_dlnn</td>
+<td style="text-align: right;">0.1997796</td>
+<td style="text-align: right;">NA</td>
+<td style="text-align: right;">-0.0491473</td>
+<td style="text-align: right;">0.0666181</td>
+<td style="text-align: right;">0.0525185</td>
+<td style="text-align: right;">0.1715374</td>
+<td style="text-align: right;">-0.0593767</td>
+<td style="text-align: right;">-0.1211359</td>
+<td style="text-align: right;">-0.2211629</td>
+<td style="text-align: right;">-0.0799305</td>
+<td style="text-align: right;">-0.2401922</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">area_spatial</td>
+<td style="text-align: right;">-0.2173067</td>
+<td style="text-align: right;">-0.0491473</td>
+<td style="text-align: right;">NA</td>
+<td style="text-align: right;">-0.0705978</td>
+<td style="text-align: right;">-0.1095993</td>
+<td style="text-align: right;">-0.1980295</td>
+<td style="text-align: right;">-0.1184448</td>
+<td style="text-align: right;">0.2282177</td>
+<td style="text-align: right;">0.3333333</td>
+<td style="text-align: right;">0.1414214</td>
+<td style="text-align: right;">0.0944384</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">area_dataeng</td>
+<td style="text-align: right;">0.1732674</td>
+<td style="text-align: right;">0.0666181</td>
+<td style="text-align: right;">-0.0705978</td>
+<td style="text-align: right;">NA</td>
+<td style="text-align: right;">0.1485595</td>
+<td style="text-align: right;">0.4298988</td>
+<td style="text-align: right;">0.1043571</td>
+<td style="text-align: right;">-0.0025779</td>
+<td style="text-align: right;">0.0282391</td>
+<td style="text-align: right;">0.4512785</td>
+<td style="text-align: right;">0.0820059</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">area_nlp</td>
+<td style="text-align: right;">0.2395677</td>
+<td style="text-align: right;">0.0525185</td>
+<td style="text-align: right;">-0.1095993</td>
+<td style="text-align: right;">0.1485595</td>
+<td style="text-align: right;">NA</td>
+<td style="text-align: right;">0.2828290</td>
+<td style="text-align: right;">0.0584166</td>
+<td style="text-align: right;">0.0975488</td>
+<td style="text-align: right;">0.0821995</td>
+<td style="text-align: right;">0.2014959</td>
+<td style="text-align: right;">0.5104035</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">area_software</td>
+<td style="text-align: right;">0.3531250</td>
+<td style="text-align: right;">0.1715374</td>
+<td style="text-align: right;">-0.1980295</td>
+<td style="text-align: right;">0.4298988</td>
+<td style="text-align: right;">0.2828290</td>
+<td style="text-align: right;">NA</td>
+<td style="text-align: right;">0.2040635</td>
+<td style="text-align: right;">-0.0135582</td>
+<td style="text-align: right;">-0.1113916</td>
+<td style="text-align: right;">0.3150630</td>
+<td style="text-align: right;">0.1735742</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">area_vis</td>
+<td style="text-align: right;">0.2016716</td>
+<td style="text-align: right;">-0.0593767</td>
+<td style="text-align: right;">-0.1184448</td>
+<td style="text-align: right;">0.1043571</td>
+<td style="text-align: right;">0.0584166</td>
+<td style="text-align: right;">0.2040635</td>
+<td style="text-align: right;">NA</td>
+<td style="text-align: right;">0.1016374</td>
+<td style="text-align: right;">0.1302893</td>
+<td style="text-align: right;">0.1005038</td>
+<td style="text-align: right;">-0.0268458</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">area_pred</td>
+<td style="text-align: right;">0.0280056</td>
+<td style="text-align: right;">-0.1211359</td>
+<td style="text-align: right;">0.2282177</td>
+<td style="text-align: right;">-0.0025779</td>
+<td style="text-align: right;">0.0975488</td>
+<td style="text-align: right;">-0.0135582</td>
+<td style="text-align: right;">0.1016374</td>
+<td style="text-align: right;">NA</td>
+<td style="text-align: right;">0.3347193</td>
+<td style="text-align: right;">0.1678293</td>
+<td style="text-align: right;">0.1875070</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">area_stat</td>
+<td style="text-align: right;">0.1406102</td>
+<td style="text-align: right;">-0.2211629</td>
+<td style="text-align: right;">0.3333333</td>
+<td style="text-align: right;">0.0282391</td>
+<td style="text-align: right;">0.0821995</td>
+<td style="text-align: right;">-0.1113916</td>
+<td style="text-align: right;">0.1302893</td>
+<td style="text-align: right;">0.3347193</td>
+<td style="text-align: right;">NA</td>
+<td style="text-align: right;">0.1414214</td>
+<td style="text-align: right;">0.2597057</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">area_database</td>
+<td style="text-align: right;">0.2350080</td>
+<td style="text-align: right;">-0.0799305</td>
+<td style="text-align: right;">0.1414214</td>
+<td style="text-align: right;">0.4512785</td>
+<td style="text-align: right;">0.2014959</td>
+<td style="text-align: right;">0.3150630</td>
+<td style="text-align: right;">0.1005038</td>
+<td style="text-align: right;">0.1678293</td>
+<td style="text-align: right;">0.1414214</td>
+<td style="text-align: right;">NA</td>
+<td style="text-align: right;">0.3873127</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">area_algo</td>
+<td style="text-align: right;">0.1738343</td>
+<td style="text-align: right;">-0.2401922</td>
+<td style="text-align: right;">0.0944384</td>
+<td style="text-align: right;">0.0820059</td>
+<td style="text-align: right;">0.5104035</td>
+<td style="text-align: right;">0.1735742</td>
+<td style="text-align: right;">-0.0268458</td>
+<td style="text-align: right;">0.1875070</td>
+<td style="text-align: right;">0.2597057</td>
+<td style="text-align: right;">0.3873127</td>
+<td style="text-align: right;">NA</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p>Next, we were interested in seeing if a students’ data science areas of interest could inform their language preferences. Thus we fitted a multinomial regression:</p>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code># weights:  39 (24 variable)
+initial  value 53.832002 
+iter  10 value 33.429573
+iter  20 value 33.013946
+iter  30 value 32.996870
+iter  40 value 32.996632
+final  value 32.996629 
+converged</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Call:
+multinom(formula = lang ~ ., data = ds_interest_data)
+
+Coefficients:
+       (Intercept) area_image  area_dlnn area_spatial area_dataeng  area_nlp
+Python  -15.564230 -2.3894102 17.2183123     -1.52104    -1.603161  1.970083
+R         1.350482  0.6089973 -0.9024187     -1.21474    -0.929882 -0.242841
+       area_software  area_vis area_pred  area_stat area_database  area_algo
+Python     2.2817491 -1.951757 2.2264644 -0.1103564     0.4556526 -0.4727399
+R          0.2013241 -1.289626 0.6354393  0.7333119     0.0880477  0.1183021
+
+Std. Errors:
+       (Intercept) area_image area_dlnn area_spatial area_dataeng area_nlp
+Python   0.9857926   1.426002 0.9857928     1.179057     1.577568 1.463735
+R        2.2481176   1.640657 1.8341269     1.352407     1.421324 1.603610
+       area_software area_vis area_pred area_stat area_database area_algo
+Python      1.384420 1.193443  1.337522  1.138077      1.172091  1.376861
+R           1.339551 1.236066  1.558067  1.362271      1.323665  1.733293
+
+Residual Deviance: 65.99326 
+AIC: 113.9933 </code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code># weights:  6 (2 variable)
+initial  value 53.832002 
+final  value 46.895746 
+converged</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>                                                                                                                                           Model
+1                                                                                                                                              1
+2 area_image + area_dlnn + area_spatial + area_dataeng + area_nlp + area_software + area_vis + area_pred + area_stat + area_database + area_algo
+  Resid. df Resid. Dev   Test    Df LR stat.   Pr(Chi)
+1        96   93.79149           NA       NA        NA
+2        74   65.99326 1 vs 2    22 27.79823 0.1824646</code></pre>
+</div>
+</div>
+<p>Looking at the model outputs, with language preference (R, Python, or No Preference) as a function of research interests using multinomial logistic regression and using “No Preference” as the reference category, we find that coefficients suggest that interest in Deep Learning/Neural Networks (<code>area_dlnn</code>) is associated with higher odds of preferring Python, while interest in statistical methods (<code>area_stat</code>) appears to slightly increase the odds of preferring R. However, a likelihood ratio test comparing the full model to the null model (intercept only) indicated that the overall model does not significantly improve fit over the null (p = 0.18). Thus, while some trends are visible, there is no strong statistical evidence that research interests collectively predict language preference in this dataset. This may be because the dataset is underpowered due to the small sample size.</p>
+</section>
 </section>
 <section id="useful-tips-remove-this-section" class="level2">
 <h2 class="anchored" data-anchor-id="useful-tips-remove-this-section">Useful tips (remove this section)</h2>
@@ -173,10 +628,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h3 class="anchored" data-anchor-id="code-chunks">Code chunks</h3>
 <p>Insert code chunks using the <em>Insert</em> drop-down menu or <code>ctrl + alt + I</code> . By default in this document, codes will not be shown but results will. If you want to change this behavior, add the chunk option <code>echo: true</code> as below.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>my_df <span class="ot">&lt;-</span> <span class="fu">tibble</span>(<span class="at">animal =</span> <span class="fu">c</span>(<span class="st">'snake'</span>, <span class="st">'gecko'</span>),</span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>                <span class="at">threatening =</span> <span class="fu">c</span>(<span class="cn">TRUE</span>, <span class="cn">FALSE</span>))</span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>my_df</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>my_df <span class="ot">&lt;-</span> <span class="fu">tibble</span>(<span class="at">animal =</span> <span class="fu">c</span>(<span class="st">'snake'</span>, <span class="st">'gecko'</span>),</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>                <span class="at">threatening =</span> <span class="fu">c</span>(<span class="cn">TRUE</span>, <span class="cn">FALSE</span>))</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>my_df</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 2 × 2
   animal threatening
@@ -221,7 +676,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="cell-output-display">
 <div class="quarto-figure quarto-figure-left">
 <figure class="figure">
-<p><img src="report_files/figure-html/unnamed-chunk-7-1.png" class="img-fluid figure-img" width="384"></p>
+<p><img src="report_files/figure-html/unnamed-chunk-14-1.png" class="img-fluid figure-img" width="384"></p>
 <figcaption>A terrible plot.</figcaption>
 </figure>
 </div>

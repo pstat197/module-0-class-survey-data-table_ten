@@ -1,7 +1,7 @@
 ---
-title: "Analysis of class surveys"
-subtitle: "If you want a subtitle put it here"
-author: "List names here"
+title: "Analysis of Class Surveys"
+subtitle: "PSTAT 197A Module 0"
+author: "Adarsh Nagar, Brooks Piper, Srinidhi Sathish, Nicole Xu, Nini Yen"
 date: last-modified
 published-title: "Updated"
 editor: visual
@@ -14,14 +14,15 @@ execute:
   cache: true
 ---
 
-Use this as a template. Keep the headers and remove all other text. Overall, your report may be quite short. When it is complete, render and then push changes to your team repository.
-
 ```{r}
 # load any other packages and read data here
 library(tidyverse)
 library(ggplot2)
 library(dplyr)
 library(scales)
+library(corrr)
+library(janitor)
+library(nnet)
 
 background <- read_csv('../data/background-clean.csv')
 interest <- read_csv('../data/interest-clean.csv')
@@ -108,15 +109,17 @@ Write a one-paragraph abstract summarizing what you did and your findings. It ne
 
 Indicate the questions your analysis addresses. These should map one-to-one to your findings. Don't include questions you didn't answer or questions you started with and refined later. If you would rather frame them as goals or tasks rather than questions that is okay; just modify the header appropriately. However you frame what you've done, you may only have two or three items; that is fine. Provide an itemized or numbered list so that the reader can easily identify your objectives.
 
-3.  Does a student’s preferred programming language (R, Python, or no preference) influence their self-reported proficiency and comfort in programming and math?
 We sought to understand how students’ programming language preferences relate to their academic background, skills, and project interests.In particular, we examined whether language preference aligns with coursework patterns in different departments, students’ domain interests, project type preferences (industry vs. research), class level or standing, and overall academic background. Our analysis addressed the following questions:
 
 1.  How does students’ academic background and preparation relate to their programming language preference?
+
 2.  How do students’ programming language preferences influence their interests and coursework choices?
+
+3.  Does a student’s preferred programming language (R, Python, or no preference) influence their self-reported proficiency and comfort in programming and math? 
 
 ## Findings
 
-Summarize your results. Don't try to explain every step you took; focus instead on providing the main data analytic outputs -- tables and figures -- and explaining clearly what they show. Clarify any important decisions you made in obtaining them. You can display codes if you like but it is not necessary.
+### Language and Proficiency
 
 The following analyses examine how students’ programming language preference (R, Python, or No preference) relates to their proficiency and comfort in programming and math.
 
@@ -125,20 +128,12 @@ The following analyses examine how students’ programming language preference (
 We first converted students’ self-reported proficiency levels in programming and math into numeric scores (1 = beginner, 2 = intermediate, 3 = advanced) and combined them with their comfort scores. The table below shows the ANOVA results testing for differences in these scores by language preference:
 
 ```{r}
-background <- read_csv("../data/background-clean.csv")
-interest   <- read_csv("../data/interest-clean.csv")
-
-# Inner join by response ID
-data <- inner_join(background, interest, by = "response_id")
-
 # Only select needed columns
-data <- data %>%
+prof_data <- all_data %>%
   select(lang, prog.prof, prog.comf, math.prof, math.comf)
 
-library(dplyr)
-
 # Turn text proficiency levels into numbers
-data <- data %>%
+prof_data <- prof_data %>%
   mutate(
     prog.prof.num = recode(prog.prof, "beg" = 1, "int" = 2, "adv" = 3
     ),
@@ -147,7 +142,7 @@ data <- data %>%
   )
 
 # Pivot longer
-data_long <- data %>%
+prof_data_long <- prof_data %>%
   pivot_longer(
     cols = c(prog.prof.num, prog.comf, math.prof.num, math.comf),
     names_to = "skill_type",
@@ -162,8 +157,8 @@ data_long <- data %>%
   )
 
 # Run ANOVA: Does comfort/proficiency differ by language?
-anova_result <- aov(score ~ lang * skill_type, data = data_long)
-summary(anova_result)
+prof_anova_result <- aov(score ~ lang * skill_type, data = prof_data_long)
+summary(prof_anova_result)
 ```
 
 The ANOVA indicates that **there is a significant difference between skill types** (Programming vs Math, Proficiency vs Comfort), but **no significant differences between languages** or their interaction with skill type. In other words, students’ comfort and proficiency levels are fairly similar across those preferring R, Python, or having no preference.
@@ -174,7 +169,7 @@ The boxplot below illustrates the distributions of programming and math comfort 
 
 ```{r}
 # Visualize mean differences
-ggplot(data_long, aes(x = lang, y = score, fill = skill_type)) +
+ggplot(prof_data_long, aes(x = lang, y = score, fill = skill_type)) +
   geom_boxplot() +
   labs(
     title = "Comfort and Proficiency by Language Preference",
@@ -185,8 +180,9 @@ ggplot(data_long, aes(x = lang, y = score, fill = skill_type)) +
   theme_minimal()
 ```
 
-From the plot, we see that **median scores are similar across language preferences** for both programming and math. Programming proficiency and comfort are slightly higher on average than math scores, consistent with the overall skill distribution in the class.
-The following chart displays the distribution of students that prefer each programming language in the class. As shown, a majority of students (around 60%) prefer Python, around 22% of students are not partial toward either language, and around 18% of the class prefers R.
+From the plot, we see that **median scores are similar across language preferences** for both programming and math. Programming proficiency and comfort are slightly higher on average than math scores, consistent with the overall skill distribution in the class. The following chart displays the distribution of students that prefer each programming language in the class. As shown, a majority of students (around 60%) prefer Python, around 22% of students are not partial toward either language, and around 18% of the class prefers R.
+
+### Language and Project Preferences
 
 ```{r}
 lang_summary <- all_data %>%
@@ -237,6 +233,8 @@ ggplot(plot_data, aes(x = lang, y = prop, fill = type)) +
   theme_minimal()
 
 ```
+
+### Language and Coursework
 
 The following chart shows that programming language preference is associated with coursework patterns. Students preferring R have taken more PSTAT courses (5.22 average) compared to Python-preferring students (4.55), showing more PSTAT coursework and experience is correlated with R preference. Conversely, Python-preferring students have completed more CS courses (1.52 vs. 1.11), aligning with Python's prominence in computer science. ECON and LING courses show less variation across language preferences, suggesting they don't heavily influence language choice. Overall, the data indicates that students' language preferences reflect their disciplinary preparation.
 
@@ -305,9 +303,58 @@ ggplot(course_avg_long, aes(x = course_type, y = avg_courses, fill = lang)) +
   theme(legend.position = "top")
 ```
 
-``` R
-{r}
+### Language and Data Science Interests
+
+Next we examine what areas of data science each language preference group is interested in. We start by separating out each of the possible areas through one-hot encoding so we can take a look at some of the patterns of area interest between the language groups.
+
+```{r}
+ds_interest_data <- all_data %>% select(c(lang, area)) %>% mutate(area_image = ifelse(str_detect(area, "Analysis or classification of images"), 1, 0),
+                                area_dlnn = ifelse(str_detect(area, "Deep learning and neural networks"), 1, 0),
+                                area_spatial = ifelse(str_detect(area, "Spatial statistics or time series analysis"), 1, 0),
+                                area_dataeng = ifelse(str_detect(area, "Data acquisition and engineering"), 1, 0),
+                                area_nlp = ifelse(str_detect(area, "Natural language processing and analysis of text"), 1, 0),
+                                area_software = ifelse(str_detect(area, "Model deployment and software or web integrations"), 1, 0),
+                                area_vis = ifelse(str_detect(area, "Data visualization and interactive dashboards"), 1, 0),
+                                area_pred = ifelse(str_detect(area, "Predictive modeling, generally"), 1, 0),
+                                area_stat = ifelse(str_detect(area, "Statistical models and inference, generally"), 1, 0),
+                                area_database = ifelse(str_detect(area, "Databases"), 1, 0),
+                                area_algo = ifelse(str_detect(area, "Algorithms"), 1, 0)) %>% select(-area)
 ```
+
+```{r}
+ds_interest_data %>%
+  pivot_longer(starts_with("area_"), names_to = "Area", values_to = "Interested") %>%
+  group_by(Area, lang) %>%
+  summarise(n = sum(Interested), .groups = "drop") %>%
+  group_by(Area) %>%
+  mutate(Percent = n / sum(n)) %>%
+  ggplot(aes(x = lang, y = Area, fill = Percent)) +
+  geom_tile() +
+  scale_fill_gradient(low = "white", high = "steelblue") +
+  labs(title = "Preference by Data Science Interest Area", x = "Preference", y = "Interest Area")
+```
+As we've already found, there is an overall preference for Python over R. Those that prefer Python have the most interest in natural language processing and software engineering. Meanwhile those that prefer R appear to be more interested in statistical models and inference, predictive modeling, and image classification. Students with no preference show the most interest in data visualization and spatial statistics/time series.
+
+In the table below, we can also take a look at whether or not there are correlations between the different areas of data science interest. We see for example, that an interest in algorithms is fairly positively correlated with an interest in natural language processing. On the other hand, an interest in algorithms is a little negatively correlated with an interest in deep learning and neural networks. Overall, there are some slight correlations between all the areas of interest, which makes sense as they all fall under a general interest in data science.
+
+```{r message=F}
+ds_interest_data %>%
+  select(starts_with("area_")) %>%
+  correlate() %>% knitr::kable()
+```
+
+Next, we were interested in seeing if a students' data science areas of interest could inform their language preferences. Thus we fitted a multinomial regression:
+```{r}
+model_mn <- multinom(lang ~ ., data = ds_interest_data)
+
+(summary(model_mn))
+```
+```{r message=F}
+model_null <- multinom(lang ~ 1, data = ds_interest_data)
+anova(model_null, model_mn, test = "Chisq")
+```
+Looking at the model outputs, with language preference (R, Python, or No Preference) as a function of research interests using multinomial logistic regression and using “No Preference” as the reference category, we find that coefficients suggest that interest in Deep Learning/Neural Networks (`area_dlnn`) is associated with higher odds of preferring Python, while interest in statistical methods (`area_stat`) appears to slightly increase the odds of preferring R. However, a likelihood ratio test comparing the full model to the null model (intercept only) indicated that the overall model does not significantly improve fit over the null (p = 0.18). Thus, while some trends are visible, there is no strong statistical evidence that research interests collectively predict language preference in this dataset. This may be because the dataset is underpowered due to the small sample size.
+
 
 ## Useful tips (remove this section)
 
