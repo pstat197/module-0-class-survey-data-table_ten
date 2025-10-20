@@ -51,4 +51,8 @@ background %>%
 background %>%
   group_by(updv.num) %>%
   select(contains('.comf')) %>%
+<<<<<<< Updated upstream
   summarize_all(.funs = median)
+=======
+  summarize_all(.funs = 'median')
+>>>>>>> Stashed changes
